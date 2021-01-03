@@ -28,11 +28,11 @@ The database, which manages data authentication and the trade data, has been cre
 
 ## Architecture
 
-see xxxx.yyy
+see [architecture](architecture.md)
 
 # Installation and execution
 
-see zzzz.www
+see [installation](installation.md)
 
 # People
 
@@ -56,7 +56,10 @@ http://magic-nexus.eu/magic-nexus-game
 This project is released under the **CC BY-SA 4.0 (Attribution-ShareAlike 4.0 International)**.
 
 # Acknowledgments
-The development of this software was supported by the **European Union's Horizon 2020 research and innovation program** under **Grant Agreement No. 689669 (MAGIC)**. *This work reflects the authors' view only; the funding agencies are not responsible for any use that may be made of the information it contains.*
+The development of this software was supported by the **European Union's Horizon 2020 research and innovation program** under **Grant Agreement No. 689669 (MAGIC)**. 
+*This work reflects the authors' view only; the funding agencies are not responsible for any use that may be made of the information it contains.*
+
+![project logo](https://magic-nexus.eu/sites/default/files/Logo_0_0.png)
 
 # Keywords
 Sustainability - Bioeconomy - Socio-Ecological Systems - Complex Adaptive Systems - Water-Energy-Food Nexus
