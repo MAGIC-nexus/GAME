@@ -1,0 +1,225 @@
+var score_Messagge=0;
+var score_Dashboard=0;
+var precondition=0;
+var final_score=0;
+
+window.addEventListener("load", function () {
+	targetScore();
+});
+
+function targetScore() {
+	/*
+	var EU_CF_initial_value = 20.3769358104986;
+	var EU_security_emissions = {
+		food:94.5, energy:70, carbon:(0.8*EU_CF_initial_value)
+	}
+	localStorage.setItem("EU", JSON.stringify(EU_security_emissions));
+	*/
+	
+	var EU_CF_initial_value = 20.3769358104986;
+	
+	var target_food = 94.5;
+	var target_energy = 70;
+	var target_carbon = (0.8*EU_CF_initial_value);
+	
+	var target_A_land = 0; var target_B_land = 0; var target_C_land = 0; var target_D_land = 0;
+	var target_A_green = 0; var target_B_green = 0; var target_C_green = 0; var target_D_green = 0;
+	var target_A_blue = 0; var target_B_blue = 0; var target_C_blue = 0; var target_D_blue = 0;
+	
+	var EU = JSON.parse(localStorage.getItem("EU"));
+	
+	var EU_food_security = EU["food"];
+	var EU_energy_security = EU["energy"];
+	var EU_carbon = EU["carbon"];
+	
+	
+	var currents = JSON.parse(localStorage.getItem("currents"));
+	var DataA = JSON.parse(localStorage.getItem("regionADataOutput"));
+	var DataB = JSON.parse(localStorage.getItem("regionBDataOutput"));
+	var DataC = JSON.parse(localStorage.getItem("regionCDataOutput"));
+	var DataD = JSON.parse(localStorage.getItem("regionDDataOutput"));
+	
+	var cur_A_land = currents["current_A_land"]; var cur_B_land = currents["current_B_land"]; 
+	var cur_C_land = currents["current_C_land"]; var cur_D_land = currents["current_D_land"];
+	
+	var cur_A_green = currents["current_A_green"]; var cur_B_green = currents["current_B_green"];
+	var cur_C_green = currents["current_C_green"]; var cur_D_green = currents["current_D_green"];
+	
+	var cur_A_blue = currents["current_A_blue"]; var cur_B_blue = currents["current_B_blue"];
+	var cur_C_blue = currents["current_C_blue"]; var cur_D_blue = currents["current_D_blue"];
+	
+	// I SEGUENTI ELEMENTI VENGONO CREATI/REGISTRATI DENTRO GRAFICI-SOTTO.JS AL FONDO DELLE FUNZIONI AGGIORNASOTTO, POCO PRIMA DI PUBBLICARE A VIDEO IL RISULTATO FINALE DEI GRAFICI SOTTO.
+	if(DataA["A_lf_limitOk"]==1 && DataA["A_wfg_limitOk"]==1 && DataA["A_wfb_limitOk"]==1 && DataB["B_lf_limitOk"]==1 && DataB["B_wfg_limitOk"]==1 && DataB["B_wfb_limitOk"]==1 && DataC["C_lf_limitOk"]==1 && DataC["C_wfg_limitOk"]==1 && DataC["C_wfb_limitOk"]==1 && DataD["D_lf_limitOk"]==1 && DataD["D_wfg_limitOk"]==1 && DataD["D_wfb_limitOk"]==1) {
+		physical_condition = 1;
+		document.getElementById("4thprecondition").innerHTML = "<i><font style='font-weight:400'> Land, Green Water and Blue Water use in all regions below the physical limit</font></i> - <b><font color='green'>Reached</font></b><hr>";
+	}
+	else {
+		physical_condition = 0;
+		var text = "";
+		if(DataA["A_lf_limitOk"]==0)
+			text=text+" Region A Land";
+		else if(DataA["A_wfg_limitOk"]==0)
+			text=text+" Region A Green Water";
+		else if(DataA["A_wfb_limitOk"]==0)
+			text=text+" Region A Blue Water";
+		else if(DataB["B_lf_limitOk"]==0)
+			text=text+" Region B Land";
+		else if(DataB["B_wfg_limitOk"]==0)
+			text=text+" Region B Green Water";
+		else if(DataB["B_wfb_limitOk"]==0)
+			text=text+" Region B Blue Water";
+		else if(DataC["C_lf_limitOk"]==0)
+			text=text+" Region C Land";
+		else if(DataC["C_wfg_limitOk"]==0)
+			text=text+" Region C Green Water";
+		else if(DataC["C_wfb_limitOk"]==0)
+			text=text+" Region C Blue Water";
+		else if(DataD["D_lf_limitOk"]==0)
+			text=text+" Region D Land";
+		else if(DataD["D_wfg_limitOk"]==0)
+			text=text+" Region D Green Water";
+		else if(DataD["D_wfb_limitOk"]==0)
+			text=text+" Region D Blue Water";
+		else
+			text="";
+		
+		document.getElementById("4thprecondition").innerHTML = "<i><font style='font-weight:400'> Land, Green Water and Blue Water use in all regions below the physical limit</font></i>- <b><font color='red'>Not Reached</font></b> - <hr>Region production above physical limit:"+text+"<hr>";
+	}
+		
+	var A_land_score=0; var B_land_score=0; var C_land_score=0; var D_land_score=0;
+	var A_green_score=0; var B_green_score=0; var C_green_score=0; var D_green_score=0;
+	var A_blue_score=0; var B_blue_score=0; var C_blue_score=0; var D_blue_score=0;
+	
+	precondition = ((EU_food_security>target_food) && (EU_energy_security>target_energy) && (EU_carbon<target_carbon) && (physical_condition==1)) ? 1:0;
+	if(precondition == 1) {
+		document.getElementById("awesome").innerHTML = "<br><div class='modal-body' style='font-weight:normal;color:black;'><font style='font-weight:500;'>Awesome! You have figured out a way for the EU member states to achieve the EU level targets for food and energy security, while keeping environmental impacts within safe boundaries.</font><br><br><font style='font-weight:500;'>Now please summarize your advice to the President of the EU in three key messages by taking the multiple choice test below.<br>Afterwards your final score will be revealed.</font></div>";
+		
+		document.getElementById("awesome").style.display = "block";
+		document.getElementById("susteinable_limit_point").style.display = "block";
+		document.getElementById("actualscore").style.display = "block";
+		document.getElementById("myTable").style.display="block";
+		document.getElementById("presidentMessages").style.display = "block";
+	}
+	else {
+		document.getElementById("awesome").innerHTML="";		
+		document.getElementById("awesome").style.display = "none";
+		document.getElementById("susteinable_limit_point").style.display = "none";
+		document.getElementById("actualscore").style.display = "none";
+		document.getElementById("presidentMessages").style.display = "none";
+	}
+	
+	////console.log("EU_food_security: "+EU_food_security+" target_food: "+target_food);
+	////console.log("EU_energy_security: "+EU_energy_security+" target_energy: "+target_energy);
+	////console.log("EU_carbon: "+EU_carbon+" target_carbon: "+target_carbon);
+	////console.log("precondition: "+precondition);
+	
+	A_land_score = (cur_A_land<target_A_land) ? 1:0; B_land_score = (cur_B_land<target_B_land) ? 1:0;
+	C_land_score = (cur_C_land<target_C_land) ? 1:0; D_land_score = (cur_D_land<target_D_land) ? 1:0;
+	//console.log("cur_A_land: "+cur_A_land+" target_A_land: "+target_A_land+" A_land_score: "+A_land_score);
+	//console.log("cur_B_land: "+cur_B_land+" target_B_land: "+target_B_land+" B_land_score: "+B_land_score);
+	//console.log("cur_C_land: "+cur_C_land+" target_C_land: "+target_C_land+" C_land_score: "+C_land_score);
+	//console.log("cur_D_land: "+cur_D_land+" target_D_land: "+target_D_land+" D_land_score: "+D_land_score);
+	
+	A_green_score = (cur_A_green<target_A_green) ? 1:0; B_green_score = (cur_B_green<target_B_green) ? 1:0;
+	C_green_score = (cur_C_green<target_C_green) ? 1:0; D_green_score = (cur_D_green<target_D_green) ? 1:0;
+	//console.log("cur_A_green: "+cur_A_green+" target_A_green: "+target_A_green+" A_green_score: "+A_green_score);
+	//console.log("cur_B_green: "+cur_B_green+" target_B_green: "+target_B_green+" B_green_score: "+B_green_score);
+	//console.log("cur_C_green: "+cur_C_green+" target_C_green: "+target_C_green+" C_green_score: "+C_green_score);
+	//console.log("cur_D_green: "+cur_D_green+" target_D_green: "+target_D_green+" D_green_score: "+D_green_score);
+	
+	A_blue_score = (cur_A_blue<target_A_blue) ? 1:0; B_blue_score = (cur_B_blue<target_B_blue) ? 1:0;
+	C_blue_score = (cur_C_blue<target_C_blue) ? 1:0; D_blue_score = (cur_D_blue<target_D_blue) ? 1:0;
+	//console.log("cur_A_blue: "+cur_A_blue+" target_A_blue: "+target_A_blue+" A_blue_score: "+A_blue_score);
+	//console.log("cur_B_blue: "+cur_B_blue+" target_B_blue: "+target_B_blue+" B_blue_score: "+B_blue_score);
+	//console.log("cur_C_blue: "+cur_C_blue+" target_C_blue: "+target_C_blue+" C_blue_score: "+C_blue_score);
+	//console.log("cur_D_blue: "+cur_D_blue+" target_D_blue: "+target_D_blue+" D_blue_score: "+D_blue_score);
+	
+	score_Dashboard = A_land_score+B_land_score+C_land_score+D_land_score+A_green_score+B_green_score+C_green_score+D_green_score+A_blue_score+B_blue_score+C_blue_score+D_blue_score;
+	document.getElementById("actualscore").innerHTML = "Score: "+score_Dashboard;
+	////console.log("score_Dashboard: "+score_Dashboard+" score_Messagge: "+score_Messagge);
+	
+	final_score=(score_Dashboard*precondition)*score_Messagge;
+	////console.log("final_score: "+final_score);
+	document.getElementById("total_score").innerHTML="TOTAL SCORE: "+final_score;
+
+	if (EU_food_security>target_food) {
+		document.getElementById("fooden").innerHTML ="<img src='icon/fs.png' style='width:30px; margin-right:1em;'><font style='font-weight:400;'> (fraction of EU  food supply met by agricolture in the EU)</font></i> - <b>"+ Math.round(EU["food"])+"% - <font color='green'><b>Reached</font></b><i><hr>";
+	} else {
+		document.getElementById("fooden").innerHTML ="<img src='icon/fs.png' style='width:30px; margin-right:1em;'><i><font style='font-weight:400'> (fraction of EU  food supply met by agricolture in the EU)</font></i> - <b>"+ Math.round(EU["food"])+"% - <font color='red'><b>Not Reached</font></b><hr>";
+	}
+	if (EU_energy_security>target_energy) {
+		document.getElementById("energyen").innerHTML ="<img src='icon/es.png' style='width:30px; margin-right:1em;'><i><font style='font-weight:400'> (fraction of EU energy supply met by energy generation in the EU)</font></i> - <b>"+Math.round(EU["energy"])+"% - <font color='green'><b>Reached</font></b><hr>";
+	} else {
+		document.getElementById("energyen").innerHTML ="<img src='icon/es.png' style='width:30px; margin-right:1em;'><i><font style='font-weight:400'> (fraction of EU energy supply met by energy generation in the EU)</font></i> - <b>"+Math.round(EU["energy"])+"% - <font color='red'><b>Not Reached</font></b><hr>";
+	}
+	if (EU_carbon<=target_carbon) {
+		document.getElementById("carbon").innerHTML ="<img src='icon/cb.png' style='width:30px; margin-right:1em;'><i><font style='font-weight:400'> (EU-average carbon footprint of production)</font></i> - <b>"+Math.round(EU["carbon"])+" kg/cap/day <font color='green'><b>Reached</font></b><hr>";
+	} else {
+		document.getElementById("carbon").innerHTML ="<img src='icon/cb.png' style='width:30px; margin-right:1em;'><i><font style='font-weight:400'> (EU-average carbon footprint of production)</font></i> - <b>"+Math.round(EU["carbon"])+" kg/cap/day <font color='red'><b>Not Reached</font></b><hr>";
+	}
+
+	localStorage.setItem("preconditions",precondition);
+	//console.log("Valore di precondizione: "+precondition);
+		document.getElementById("cur_land_A").innerHTML = A_land_score;
+		//document.getElementById("penalityA").innerHTML = localStorage.getItem("penalityA");
+		document.getElementById("cur_land_B").innerHTML = B_land_score;
+		//document.getElementById("penalityB").innerHTML = localStorage.getItem("penalityB");
+		document.getElementById("cur_land_C").innerHTML = C_land_score;
+		//document.getElementById("penalityC").innerHTML = localStorage.getItem("penalityC");
+		document.getElementById("cur_land_D").innerHTML = D_land_score;
+		//document.getElementById("penalityD").innerHTML = localStorage.getItem("penalityD");
+		
+		document.getElementById("cur_green_A").innerHTML = A_green_score;
+		document.getElementById("cur_green_B").innerHTML = B_green_score;
+		document.getElementById("cur_green_C").innerHTML = C_green_score;
+		document.getElementById("cur_green_D").innerHTML = D_green_score;
+		
+		document.getElementById("cur_blue_A").innerHTML = A_blue_score;
+		document.getElementById("cur_blue_B").innerHTML = B_blue_score;
+		document.getElementById("cur_blue_C").innerHTML = C_blue_score;
+		document.getElementById("cur_blue_D").innerHTML = D_blue_score;		
+		
+		document.getElementById("tabscore").classList.remove("invisible");
+		document.getElementById("submit_score").setAttribute("data-toggle","modal");
+}
+var myVar = setInterval(targetScore, 3000);
+
+function Multiplier() {
+	score_Messagge=0;
+	var boxes=document.getElementsByName("ckx");
+	for(var i=0;i<boxes.length;i++){
+		document.getElementById("lckx"+i).style.color="black";
+		// i checkbox ckx1 - ckx2 - ckx6 contengono le risposte giuste, gli altri no
+  		if(boxes[i].checked && (i==1 || i==2 || i==6)) {
+    		score_Messagge++;
+    		document.getElementById("lckx"+i).style.color="green";
+  		}
+  		else if(boxes[i].checked && (i!=1 || i!=2 || i!=6)){
+			document.getElementById("lckx"+i).style.color="red";
+			
+			if(i==0)
+				document.getElementById("answerlckx0").innerHTML = "[No, not if you have very little irrigated area.]";
+			else if(i==3)
+				document.getElementById("answerlckx3").innerHTML = "[No, it depends on consumption levels, but regions low in (both) water and land availability will have a hard time to achieve this.]";
+			else if(i==4)
+				document.getElementById("answerlckx4").innerHTML = "[No, not if fossil energy is used to generate electricity.]";
+			else if(i==5)
+				document.getElementById("answerlckx5").innerHTML = "[No, not if you switch to biofuels and hydropower.]";
+			else {
+				document.getElementById("answerlckx7").innerHTML = "[No, saving energy always good starting point to reduce the (carbon) footprint.]";
+			}
+		}
+		else {
+			document.getElementById("lckx"+i).style.color="black";
+		}
+		boxes[i].disabled = true;
+	}	
+	//alert("Valore di score_Messagge: "+score_Messagge);
+	final_score=(score_Dashboard*precondition)*score_Messagge;
+	document.getElementById("total_score").innerHTML="TOTAL SCORE: "+final_score;
+	document.getElementById("total_score").style.display="block";
+	document.getElementById("Send-messages").style.display="none";
+	
+	document.getElementById("thankyou").innerHTML = "<hr>Game Finished. Thank you for playing Nexus Game.";
+	document.getElementById("thankyou").style.display="block";
+}
