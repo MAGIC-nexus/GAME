@@ -7,7 +7,7 @@ Local storage is updated almost in real time, depending on the inputs that playe
 The containers are recalled through special pre-existing variables within our algorithms and, thanks to the use of some game constants, duly inserted in other javascript files, it is possible to convey this flow of information so that it can simulate the right functioning of the game and feed correctly the various output graphics created using chart.js library.
 Employing a local storage and a browser memory has enabled us to simulate the game, without having to store the data in a database or use a server-side database.
 
-pic1
+![pic1](pictures/pic1.png)
 
 # Single Player Level 2
 In the multiplayer version, the operating principle explained in the "Single Player" version applies.
@@ -18,7 +18,7 @@ In order to create the trade center it was deemed necessary to combine the clien
 In fact, requests are sent through ajax calls to jsp pages which use Java methods to query, modify or insert data in the correct charts in the database.
 This solution allowed us to create a much more dynamic and secure tradecenter as well as a much more intuitive and 2.0 one thanks to a request list view
 
-pic2
+![pic2](pictures/pic2.png)
 
 # Multiplayer
 The architecture of the Multiplayer version is completely different from the Single Player versions 1 & 2. The Requirements provide for the possibility of having one player for each Region, who cooperatively play in order to reach the prerequisites for completing the game.
@@ -43,4 +43,5 @@ By using local storage the player can freely simulate the result of their action
 -	Through xml http prequest the function calls a jsp page, which in turn uses java methods to query the database and return information: 
 Number of pending requests, list of requests, possibility to accept, reject or test requests.
 
-pic3
+![pic3](pictures/pic3.png)
+
