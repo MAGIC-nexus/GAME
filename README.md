@@ -36,7 +36,7 @@ see [installation](installation.md)
 
 # People
 
-Joep F. Schyns – concept and game prototype design. (University of Twente)
+Joep F. Schyns – lead game concept and prototype design. (University of Twente)
 
 Michele Staiano – web packaging leader. (University of Naples Federico II)
 
