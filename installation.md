@@ -14,6 +14,22 @@ at least 1.8.
 For more information:
 https://www.java.com/
 
+## Customization of database location
+The file `config.properties` holds the details about the personal database instance to use:
+  URL, login and password 
+ 
+ with the format:
+ 
+```
+db.host = <IPserver>/<nomedb> 
+
+db.login = <login_accesso_db>
+
+db.password = <password_accesso_db>
+```
+
+Any time the file has been edited You need to restart the Tomcat server and the application will point to the custom database. A "*Connessione Ok*" message will appear in the log file of Tomcat.
+
 ## Apache Tomcat 8:
 Download the Apache Tomcat “Binary Distributions”
 
