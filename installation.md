@@ -27,8 +27,8 @@ db.login = <login_accesso_db>
 
 db.password = <password_accesso_db>
 ```
-
-Any time the file has been edited You need to restart the Tomcat server and the application will point to the custom database. A "*Connessione Ok*" message will appear in the log file of Tomcat.
+Expand WAR project file and edit the file: `webapps/CARTELLA_PROGETTO/WEB-INF/config.properties`
+Once the file has been saved You need to restart the Tomcat server and the application will point to the custom database. A "*Connessione Ok*" message will appear in the log file of Tomcat in case of success.
 
 ## Apache Tomcat 8:
 Download the Apache Tomcat “Binary Distributions”
